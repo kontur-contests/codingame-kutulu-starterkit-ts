@@ -9,6 +9,25 @@ import { Explorer } from "./models/Explorer";
 import { SpawningMinion } from "./models/SpawningMinion";
 import { Wanderer } from "./models/Wanderer";
 
+export interface InitData {
+  map: GameMap;
+  settings: GameSettings;
+}
+
+export type LineReader = () => string;
+
+export class Reader {
+  public constructor(private lineReader: LineReader) {}
+
+  public readInitData() {
+    return readInitData(this.lineReader);
+  }
+
+  public readState(map: GameMap, settings: GameSettings) {
+    return readState(this.lineReader, map, settings);
+  }
+}
+
 function initMap(width: number, height: number, rows: string[]) {
   const cells = rows.map(row =>
     row.split("").map(cellTypeChar => {
@@ -45,18 +64,18 @@ function initEntity(
   return new Wanderer(id, x, y, param0, param2);
 }
 
-export function readInitData() {
-  const width = parseInt(readline());
-  const height = parseInt(readline());
+function readInitData(lineReader: LineReader): InitData {
+  const width = parseInt(lineReader());
+  const height = parseInt(lineReader());
   const rows = [];
   for (let i = 0; i < height; i++) {
-    const line = readline();
+    const line = lineReader();
     rows.push(line);
   }
 
   const map = initMap(width, height, rows);
 
-  const inputs = readline().split(" ");
+  const inputs = lineReader().split(" ");
   const sanityLossLonely = parseInt(inputs[0]); // how much sanity you lose every turn when alone, always 3 until wood 1
   const sanityLossGroup = parseInt(inputs[1]); // how much sanity you lose every turn when near another player, always 1 until wood 1
   const wandererSpawnTime = parseInt(inputs[2]); // how many turns the wanderer take to spawn, always 3 until wood 1
@@ -72,8 +91,12 @@ export function readInitData() {
   return { map, settings };
 }
 
-export function readState(map: GameMap, settings: GameSettings) {
-  const entityCount = parseInt(readline()); // the first given entity corresponds to your explorer
+function readState(
+  lineReader: LineReader,
+  map: GameMap,
+  settings: GameSettings
+): State {
+  const entityCount = parseInt(lineReader()); // the first given entity corresponds to your explorer
 
   let player!: Explorer;
   const spawningMinions: SpawningMinion[] = [];
@@ -81,7 +104,7 @@ export function readState(map: GameMap, settings: GameSettings) {
   const wanderers: Wanderer[] = [];
 
   for (let i = 0; i < entityCount; i++) {
-    const inputs = readline().split(" ");
+    const inputs = lineReader().split(" ");
     const entityType = inputs[0] as EntityType;
     const id = parseInt(inputs[1]);
     const x = parseInt(inputs[2]);
