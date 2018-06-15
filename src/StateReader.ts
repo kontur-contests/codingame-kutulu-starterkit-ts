@@ -16,7 +16,7 @@ export interface InitData {
 
 export type LineReader = () => string;
 
-export class Reader {
+export class StateReader {
   public constructor(private lineReader: LineReader) {}
 
   public readInitData() {

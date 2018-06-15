@@ -1,7 +1,7 @@
-import { Reader } from "./reader";
+import { StateReader } from "./StateReader";
 import { getNextAction } from "./ai";
 
-const reader = new Reader(readline);
+const reader = new StateReader(readline);
 const { map, settings } = reader.readInitData();
 
 while (true) {

@@ -1,5 +1,5 @@
 import { FakeLineReader } from "../FakeLineReader";
-import { Reader } from "../reader";
+import { StateReader } from "../StateReader";
 import { GameMap } from "../models/GameMap";
 import { GameSettings } from "../models/GameSettings";
 import { CellType } from "../models/CellType";
@@ -18,7 +18,7 @@ test("Reader reads initial data", () => {
     "1 2 3 20"
   ]);
 
-  const reader = new Reader(lineReader);
+  const reader = new StateReader(lineReader);
 
   reader.readInitData();
 });
@@ -33,7 +33,7 @@ test("readInitData returns map", () => {
     "1 2 3 20"
   ]);
 
-  const reader = new Reader(lineReader);
+  const reader = new StateReader(lineReader);
 
   const { map } = reader.readInitData();
 
@@ -57,7 +57,7 @@ test("readInitData returns settings", () => {
     "1 2 3 20"
   ]);
 
-  const reader = new Reader(lineReader);
+  const reader = new StateReader(lineReader);
 
   const { settings } = reader.readInitData();
 
@@ -80,7 +80,7 @@ test("readState reads state", () => {
     "WANDERER 2 1 2 18 1 1"
   ]);
 
-  const reader = new Reader(lineReader);
+  const reader = new StateReader(lineReader);
 
   reader.readState(map, settings);
 });
@@ -97,7 +97,7 @@ test("readState returns state", () => {
     "WANDERER 4 1 2 18 1 1"
   ]);
 
-  const reader = new Reader(lineReader);
+  const reader = new StateReader(lineReader);
 
   const state = reader.readState(map, settings);
   expect(state).toBeInstanceOf(State);
