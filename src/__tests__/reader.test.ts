@@ -9,14 +9,14 @@ import { SpawningMinion } from "../models/SpawningMinion";
 import { Wanderer } from "../models/Wanderer";
 
 test("Reader reads initial data", () => {
-  const lineReader = FakeLineReader.fromLines([
-    "4",
-    "3",
-    "####",
-    "#.w#",
-    "####",
-    "1 2 3 20"
-  ]);
+  const lineReader = FakeLineReader.input`
+    4
+    3
+    ####
+    #.w#
+    ####
+    1 2 3 20
+  `;
 
   const reader = new StateReader(lineReader);
 
@@ -24,14 +24,14 @@ test("Reader reads initial data", () => {
 });
 
 test("readInitData returns map", () => {
-  const lineReader = FakeLineReader.fromLines([
-    "4",
-    "3",
-    "####",
-    "#.w#",
-    "####",
-    "1 2 3 20"
-  ]);
+  const lineReader = FakeLineReader.input`
+    4
+    3
+    ####
+    #.w#
+    ####
+    1 2 3 20
+  `;
 
   const reader = new StateReader(lineReader);
 
@@ -48,14 +48,14 @@ test("readInitData returns map", () => {
 });
 
 test("readInitData returns settings", () => {
-  const lineReader = FakeLineReader.fromLines([
-    "4",
-    "3",
-    "####",
-    "#.w#",
-    "####",
-    "1 2 3 20"
-  ]);
+  const lineReader = FakeLineReader.input`
+    4
+    3
+    ####
+    #.w#
+    ####
+    1 2 3 20
+  `;
 
   const reader = new StateReader(lineReader);
 
@@ -72,13 +72,13 @@ test("readState reads state", () => {
   const map = new GameMap(1, 1, [[CellType.Wall]]);
   const settings = new GameSettings(1, 2, 3, 4);
 
-  const lineReader = FakeLineReader.fromLines([
-    "4",
-    "EXPLORER 1 1 1 100 123 123",
-    "EXPLORER 2 1 2 80 123 123",
-    "WANDERER 2 1 2 2 0 -1",
-    "WANDERER 2 1 2 18 1 1"
-  ]);
+  const lineReader = FakeLineReader.input`
+    4
+    EXPLORER 1 1 1 100 123 123
+    EXPLORER 2 1 2 80 123 123
+    WANDERER 3 1 2 2 0 -1
+    WANDERER 4 1 2 18 1 1
+  `;
 
   const reader = new StateReader(lineReader);
 
@@ -89,13 +89,13 @@ test("readState returns state", () => {
   const map = new GameMap(1, 1, [[CellType.Wall]]);
   const settings = new GameSettings(1, 2, 3, 4);
 
-  const lineReader = FakeLineReader.fromLines([
-    "4",
-    "EXPLORER 1 1 1 100 123 123",
-    "EXPLORER 2 1 2 80 123 123",
-    "WANDERER 3 1 2 2 0 -1",
-    "WANDERER 4 1 2 18 1 1"
-  ]);
+  const lineReader = FakeLineReader.input`
+    4
+    EXPLORER 1 1 1 100 123 123
+    EXPLORER 2 1 2 80 123 123
+    WANDERER 3 1 2 2 0 -1
+    WANDERER 4 1 2 18 1 1
+  `;
 
   const reader = new StateReader(lineReader);
 
