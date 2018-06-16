@@ -11,7 +11,7 @@
     "webpack": "^4.12.0"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
     "watch": "webpack --watch --mode development",
     "test": "jest --watch"
   },
