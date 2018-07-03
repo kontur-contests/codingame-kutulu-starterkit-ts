@@ -1,6 +1,6 @@
-# codingame-kutulu-starterkit-js
+# codingame-kutulu-starterkit-ts
 
-Code of Kutulu Contest JavaScript Starter Kit
+Code of Kutulu Contest TypeScript Starter Kit
 
 ## Исходный код
 
